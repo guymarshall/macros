@@ -12,9 +12,12 @@ macro_rules! create_function {
     };
 }
 
+create_function!(foo);
+create_function!(bar);
+
 fn main() {
     say_hello!();
 
-    create_function!(test);
-    test();
+    foo();
+    bar();
 }
