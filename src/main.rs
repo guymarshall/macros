@@ -46,6 +46,22 @@ macro_rules! calculate {
     };
 }
 
+macro_rules! calculate {
+    // The pattern for a single `eval`
+    (eval $e:expr) => {
+        {
+            let val: usize = $e; // Force types to be integers
+            println!("{} = {}", stringify!{$e}, val);
+        }
+    };
+
+    // Decompose multiple evals recursively
+    (eval $e:expr, $(eval $es:expr),+) => {{
+        calculate! { eval $e }
+        calculate! { $(eval $es),+ }
+    }};
+}
+
 fn main() {
     say_hello!();
 
@@ -74,5 +90,11 @@ fn main() {
 
     calculate! {
         eval (1 + 2) * (3 / 4)
+    }
+
+    calculate! { // Look ma! Variadic `calculate!`!
+        eval 1 + 2,
+        eval 3 + 4,
+        eval (2 * 3) + 1
     }
 }
