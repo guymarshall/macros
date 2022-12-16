@@ -21,6 +21,15 @@ macro_rules! print_result {
     };
 }
 
+macro_rules! test {
+    ($left:expr; and $right:expr) => {
+        println!("{:?} anmd {:?} is {:?}", stringify!($left), stringify!($right), stringify!($left && $right))
+    };
+    ($left:expr; or $right:expr) => {
+        println!("{:?} or {:?} os {:?}", stringify!($left), stringify!($right), stringify!($left || $right))
+    };
+}
+
 fn main() {
     say_hello!();
 
@@ -35,4 +44,7 @@ fn main() {
 
         x * x + 2 * x - 1
     });
+
+    test!(1i32 + 1 == 2i32; and 2i32 * 2 == 4i32);
+    test!(true; or false);
 }
